@@ -2,7 +2,7 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr_block
 
   tags = {
-    Name = "main"
+    Name = "eks-vpc"
   }
 }
 
@@ -13,7 +13,7 @@ resource "aws_subnet" "private" {
   availability_zone = var.availability_zones[count.index]
 
   tags = {
-    "Name" = "private-${var.availability_zones[count.index]}"
+    "Name" = "eks-private-${var.availability_zones[count.index]}"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name" = "public-${var.availability_zones[count.index]}"
+    "Name" = "eks-public-${var.availability_zones[count.index]}"
   }
 }
 
@@ -33,7 +33,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "igw"
+    Name = "eks-igw"
   }
 }
 
@@ -41,7 +41,7 @@ resource "aws_eip" "nat" {
   count = length(var.availability_zones)
 
   tags = {
-    Name = "nat-${var.availability_zones[count.index]}"
+    Name = "eks-nat-${var.availability_zones[count.index]}"
   }
 }
 
@@ -51,7 +51,7 @@ resource "aws_nat_gateway" "nat" {
   subnet_id      = aws_subnet.public[count.index].id
 
   tags = {
-    Name = "nat-${var.availability_zones[count.index]}"
+    Name = "eks-nat-${var.availability_zones[count.index]}"
   }
 
   depends_on = [aws_internet_gateway.igw]
@@ -67,7 +67,7 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    Name = "private-${var.availability_zones[count.index]}"
+    Name = "eks-private-${var.availability_zones[count.index]}"
   }
 }
 
@@ -81,7 +81,7 @@ resource "aws_route_table" "public" {
   }
 
   tags = {
-    Name = "public-${var.availability_zones[count.index]}"
+    Name = "eks-public-${var.availability_zones[count.index]}"
   }
 }
 
