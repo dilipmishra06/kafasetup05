@@ -15,4 +15,5 @@ steps:
 - script: |
     cd eks-terraform
     terraform init
+    terraform plan
   displayName: 'Run a multi-line script'
