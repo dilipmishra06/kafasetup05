@@ -15,5 +15,5 @@ steps:
 - script: |
     cd eks-terraform
     terraform init
-    terraform plan
+    terraform plan -var-file dev.tfvars
   displayName: 'Run a multi-line script'
