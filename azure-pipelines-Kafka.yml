@@ -6,8 +6,7 @@
 trigger:
 - none
 
-pool:
-  vmImage: mytestagent
+pool: mytestagent
 
 steps:
 - script: echo Hello, world!
