@@ -1,0 +1,23 @@
+apiVersion: "kafka.strimzi.io/v1beta2"
+kind: "KafkaConnector"
+metadata:
+  name: "my-sql-source-connector"
+  labels:
+    strimzi.io/cluster: kafka-connect-cluster
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  class: io.debezium.connector.mysql.MySqlConnector
+  tasksMax: 1
+  config:
+    database.hostname: 192.168.29.121
+    database.port: "3306"
+    database.user: "${file:/opt/kafka/external-configuration/mysql-config/debezium-mysql-credentials.properties:mysql_username}"
+    database.password: "${file:/opt/kafka/external-configuration/mysql-config/debezium-mysql-credentials.properties:mysql_password}"
+    database.server.id: "184051"
+    database.server.name: "sqlserver2"
+    database.whitelist: "source1"
+    database.allowPublicKeyRetrieval: true
+    database.history.kafka.bootstrap.servers: "my-cluster-kafka-bootstrap:9092"
+    database.history.kafka.topic: "schema-changes.inventory"
+    include.schema.changes: "true"
