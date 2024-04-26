@@ -7,7 +7,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 
 spec:
-  image: kavipriyanjeevanandam/source-sql-sink-s3
+  image: 211125583282.dkr.ecr.us-east-1.amazonaws.com/kafka-strimzi:latest
   replicas: 1
 
   bootstrapServers: my-cluster-kafka-bootstrap:9093
