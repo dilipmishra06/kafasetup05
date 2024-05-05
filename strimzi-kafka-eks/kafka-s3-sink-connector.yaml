@@ -1,7 +1,7 @@
 apiVersion: "kafka.strimzi.io/v1beta2"
 kind: "KafkaConnector"
 metadata:
-  name: "s3-sink-connector"
+  name: "s3-sink-connector-dilip"
   labels:
     strimzi.io/cluster: kafka-connect-cluster
   annotations:
